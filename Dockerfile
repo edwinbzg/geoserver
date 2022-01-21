@@ -65,6 +65,10 @@ RUN set -e; \
     tini \
     gnupg \
     curl \
+    gcc \
+    python-dev \
+    python-setuptools \
+    libffi-dev \
     lsb-release; \
     gcsFuseRepo=gcsfuse-`lsb_release -c -s`; \
     echo "deb http://packages.cloud.google.com/apt $gcsFuseRepo main" | \
