@@ -23,6 +23,8 @@ echo "Mounting GCS Fuse."
 gcsfuse --debug_gcs --debug_fuse $BUCKET /geoserver/ 
 echo "Mounting completed."
 
+curl -sSL https://sdk.cloud.google.com | bash
+
 echo "Starting Backup DATA_DIR"
 gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
 echo "Backup DATA_DIR Complete"

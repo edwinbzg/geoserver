@@ -76,7 +76,7 @@ RUN set -e; \
     && apt-get clean
 
 # Install Google Cloud SDK
-RUN curl -sSL https://sdk.cloud.google.com | bash   
+# RUN curl -sSL https://sdk.cloud.google.com | bash   
 
 # Set fallback mount directory
 ENV MNT_DIR /mnt/gcs
