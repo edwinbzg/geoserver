@@ -23,6 +23,15 @@ echo "Mounting GCS Fuse."
 gcsfuse --debug_gcs --debug_fuse $BUCKET /geoserver/ 
 echo "Mounting completed."
 
+echo "Starting Backup DATA_DIR"
+gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
+echo "Backup DATA_DIR Complete"
+
+# Crontab
+chmod ugo+x backup.sh
+chmod ugo+x cronjob.sh
+crontab cronjob.sh
+
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
 # For environments with multiple CPU cores, increase the number of workers
