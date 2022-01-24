@@ -73,11 +73,9 @@ RUN set -e; \
     apt-key add -; \
     apt-get update; \
     apt-get install -y gcsfuse python-pip \
-    && apt-get clean; \
-    curl https://storage.googleapis.com/pub/gsutil.tar.gz; \
-    tar xfz gsutil.tar.gz -C $GEOSERVER_HOME
-    
-ENV PATH="${PATH}:$GEOSERVER_HOME/gsutil"
+    && apt-get clean;
+ 
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y 
     
 # Install Google Cloud SDK
 # RUN curl -sSL https://sdk.cloud.google.com | bash   
@@ -100,6 +98,7 @@ RUN groupadd -r ${GROUP_NAME} -g ${GEOSERVER_GID} && \
 RUN mkdir -p  ${GEOSERVER_DATA_DIR} ${CERT_DIR} ${FOOTPRINTS_DATA_DIR} ${FONTS_DIR} \
              ${GEOWEBCACHE_CACHE_DIR} ${GEOSERVER_HOME} ${EXTRA_CONFIG_DIR} /community_plugins /stable_plugins \
            /plugins /geo_data
+
 
 # Resources
 ADD resources /tmp/resources
@@ -129,7 +128,11 @@ RUN echo 'figlet -t "Kartoza Docker GeoServer"' >> ~/.bashrc
 
 WORKDIR ${GEOSERVER_HOME}
 
+# RUN wget https://storage.googleapis.com/pub/gsutil.tar.gz; \
+#     tar xfz gsutil.tar.gz
 
+# ENV PATH "$PATH:geoserver/gsutil"
+# RUN echo "export PATH=/geoserver/gsutil:${PATH}" >> /root/.bashrc
 
 
 # Use tini to manage zombie processes and signal forwarding
