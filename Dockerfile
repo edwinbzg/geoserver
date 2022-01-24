@@ -65,10 +65,6 @@ RUN set -e; \
     tini \
     gnupg \
     curl \
-    gcc \
-    python-dev \
-    python-setuptools \
-    libffi-dev \
     lsb-release; \
     gcsFuseRepo=gcsfuse-`lsb_release -c -s`; \
     echo "deb http://packages.cloud.google.com/apt $gcsFuseRepo main" | \
@@ -78,7 +74,10 @@ RUN set -e; \
     apt-get update; \
     apt-get install -y gcsfuse python-pip \
     && apt-get clean; \
-    pip install --upgrade pip
+    curl https://storage.googleapis.com/pub/gsutil.tar.gz \
+    tar xfz gsutil.tar.gz -C $GEOSERVER_HOME
+    
+ENV PATH="${PATH}:$GEOSERVER_HOME/gsutil"
     
 # Install Google Cloud SDK
 # RUN curl -sSL https://sdk.cloud.google.com | bash   
