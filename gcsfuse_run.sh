@@ -31,9 +31,9 @@ gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
 echo "Backup DATA_DIR Complete"
 
 # Crontab
-chmod ugo+x backup.sh
-chmod ugo+x cronjob.sh
-crontab cronjob.sh
+chmod ugo+x /app/backup.sh
+chmod ugo+x /app/cronjob.sh
+crontab /app/cronjob.sh
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
