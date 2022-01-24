@@ -25,7 +25,7 @@ echo "Mounting completed."
 
 # curl -sSL https://sdk.cloud.google.com | bash
 echo "INSTALL GSUTIL"
-pip install gsutil
+pip install "gsutil==4.38"
 
 echo "Starting Backup DATA_DIR"
 gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
