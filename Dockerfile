@@ -78,7 +78,7 @@ RUN set -e; \
     apt-get update; \
     apt-get install -y gcsfuse python-pip \
     && apt-get clean; \
-    py -m pip install --upgrade pip
+    pip install --upgrade pip
     
 # Install Google Cloud SDK
 # RUN curl -sSL https://sdk.cloud.google.com | bash   
