@@ -74,7 +74,7 @@ RUN set -e; \
     apt-get update; \
     apt-get install -y gcsfuse python-pip \
     && apt-get clean; \
-    curl https://storage.googleapis.com/pub/gsutil.tar.gz \
+    curl https://storage.googleapis.com/pub/gsutil.tar.gz; \
     tar xfz gsutil.tar.gz -C $GEOSERVER_HOME
     
 ENV PATH="${PATH}:$GEOSERVER_HOME/gsutil"
