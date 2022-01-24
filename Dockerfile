@@ -76,7 +76,7 @@ RUN set -e; \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
     apt-key add -; \
     apt-get update; \
-    apt-get install -y gcsfuse \
+    apt-get install -y gcsfuse python-pip \
     && apt-get clean
 
 # Install Google Cloud SDK
