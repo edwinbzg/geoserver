@@ -32,8 +32,14 @@ echo "Backup DATA_DIR Complete"
 
 # Crontab
 chmod ugo+x /app/backup.sh
-chmod ugo+x /app/cronjob.sh
-crontab /app/cronjob.sh
+# chmod ugo+x /app/cronjob.sh
+
+echo "0 * * * * /app/backup.sh >> /var/log/cron.log 2>&1
+# This extra line makes it a valid cron" > scheduler.txt
+
+crontab scheduler.txt
+# cron -f
+
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
