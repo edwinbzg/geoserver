@@ -71,11 +71,13 @@ RUN set -e; \
     tee /etc/apt/sources.list.d/gcsfuse.list; \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
     apt-key add -; \
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
     apt-get update; \
-    apt-get install -y gcsfuse cron \
+    apt-get install -y gcsfuse cron google-cloud-sdk \
     && apt-get clean;
  
-RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y 
+# RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y 
     
 # Install Google Cloud SDK
 # RUN curl -sSL https://sdk.cloud.google.com | bash   
@@ -89,7 +91,7 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Ensure the script is executable
-RUN chmod +x /app/gcsfuse_run.sh
+RUN chmod +x /app/gcsfuse_run.sh && chmod +x /app/start.sh && chmod +x /app/backup.sh && chmod +x /app/cronjob.sh
 
 # Workdir 
 WORKDIR /scripts
@@ -140,5 +142,5 @@ WORKDIR ${GEOSERVER_HOME}
 ENTRYPOINT ["/usr/bin/tini", "--"] 
 
 # Pass the startup script as arguments to Tini
-CMD ["/app/gcsfuse_run.sh"]
+CMD ["/app/start.sh"]
 # [END cloudrun_fuse_dockerfile]
