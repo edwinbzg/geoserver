@@ -19,17 +19,17 @@ set -eo pipefail
 # Create mount directory for service
 # mkdir -p $MNT_DIR
 
-echo "Mounting GCS Fuse."
-gcsfuse --debug_gcs --debug_fuse $BUCKET /geoserver/ 
-echo "Mounting completed."
+# echo "Mounting GCS Fuse."
+# gcsfuse --debug_gcs --debug_fuse $BUCKET /geoserver/ 
+# echo "Mounting completed."
 
 # curl -sSL https://sdk.cloud.google.com | bash
 echo "USE GSUTIL"
 
-echo "Starting Backup DATA_DIR"
-gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
-#gsutil -m cp -r gs://geomanguera/documentos /opt/geoserver/documentos
-echo "Backup DATA_DIR Complete"
+echo "Starting Backup DATA_DIR & Capas"
+gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver && gsutil -m cp -r gs://geomanguera/capas /opt/geoserver
+#gsutil -m cp -r gs://geomanguera/capas /opt/geoserver
+echo "Backup DATA_DIR & Capas Complete"
 
 # Crontab
 # chmod ugo+x /app/backup.sh
