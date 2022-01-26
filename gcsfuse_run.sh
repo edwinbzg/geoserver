@@ -28,16 +28,19 @@ echo "USE GSUTIL"
 
 echo "Starting Backup DATA_DIR"
 gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver/data_dir
+#gsutil -m cp -r gs://geomanguera/documentos /opt/geoserver/documentos
 echo "Backup DATA_DIR Complete"
 
 # Crontab
-chmod ugo+x /app/backup.sh
+# chmod ugo+x /app/backup.sh
 # chmod ugo+x /app/cronjob.sh
 
-echo "0 * * * * /app/backup.sh >> /var/log/cron.log 2>&1
-# This extra line makes it a valid cron" > scheduler.txt
+# /app/cronjob.sh
 
-crontab scheduler.txt
+# echo "0 * * * * /app/backup.sh >> /var/log/cron.log 2>&1
+# # This extra line makes it a valid cron" > scheduler.txt
+
+# crontab scheduler.txt
 # cron -f
 
 
