@@ -27,7 +27,7 @@ set -eo pipefail
 echo "USE GSUTIL"
 
 echo "Starting Backup DATA_DIR & Capas"
-gsutil -m cp -r gs://geomanguera/data_dir /opt/geoserver && gsutil -m cp -r gs://geomanguera/capas /opt/geoserver
+gsutil -m cp -r gs://$BUCKET/$LAYER/data_dir /opt/geoserver && gsutil -m cp -r gs://$BUCKET/$LAYER/documentos /opt/geoserver
 #gsutil -m cp -r gs://geomanguera/capas /opt/geoserver
 echo "Backup DATA_DIR & Capas Complete"
 
